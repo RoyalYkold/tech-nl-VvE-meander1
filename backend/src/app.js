@@ -4,6 +4,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 const morgan = require('morgan')
 const dotenv = require('dotenv')
+const { rateLimit } = require('express-rate-limit')
 
 dotenv.config()
 
@@ -12,6 +13,20 @@ const authRoutes = require('./routes/auth')
 const privateRoutes = require('./routes/private')
 
 const app = express()
+const authRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Te veel inlogpogingen. Probeer later opnieuw.' },
+})
+const privateRateLimit = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { message: 'Te veel verzoeken. Probeer later opnieuw.' },
+})
 
 app.use(helmet())
 app.use(cors({ origin: process.env.CORS_ORIGIN || 'http://localhost:5173' }))
@@ -23,8 +38,8 @@ app.get('/api/health', (_, res) => {
 })
 
 app.use('/api/public', publicRoutes)
-app.use('/api/auth', authRoutes)
-app.use('/api/private', privateRoutes)
+app.use('/api/auth', authRateLimit, authRoutes)
+app.use('/api/private', privateRateLimit, privateRoutes)
 
 app.use('/private-files', (req, res) => {
   res.status(403).json({ message: 'Directe toegang tot privébestanden is niet toegestaan.' })
