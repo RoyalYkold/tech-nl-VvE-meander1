@@ -7,7 +7,7 @@ import { AuthProvider } from './AuthProvider'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/tech-nl-VvE-meander1/">
       <AuthProvider>
         <App />
       </AuthProvider>
