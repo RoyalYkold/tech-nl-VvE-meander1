@@ -18,10 +18,6 @@ export function NavBar() {
   const [scrolled, setScrolled] = useState(pathname !== '/')
 
   useEffect(() => {
-    setMenuOpen(false)
-  }, [pathname])
-
-  useEffect(() => {
     const handleScroll = () => {
       setScrolled(pathname !== '/' || window.scrollY > 24)
     }
@@ -57,24 +53,24 @@ export function NavBar() {
         <div className="nav-panel">
           <nav className="nav-links">
             {publicLinks.map(([to, label]) => (
-              <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'active' : '')}>
+              <NavLink key={to} to={to} className={({ isActive }) => (isActive ? 'active' : '')} onClick={() => setMenuOpen(false)}>
                 {label}
               </NavLink>
             ))}
-            {user ? <NavLink to="/dashboard">Dashboard</NavLink> : null}
+            {user ? <NavLink to="/dashboard" onClick={() => setMenuOpen(false)}>Dashboard</NavLink> : null}
           </nav>
 
           <div className="nav-actions">
             {user ? (
-              <button onClick={logout} className="btn btn-ghost" type="button">
+              <button onClick={() => { setMenuOpen(false); logout() }} className="btn btn-ghost" type="button">
                 Uitloggen
               </button>
             ) : (
-              <NavLink to="/inloggen" className="btn btn-ghost">
+              <NavLink to="/inloggen" className="btn btn-ghost" onClick={() => setMenuOpen(false)}>
                 Bewonerslogin
               </NavLink>
             )}
-            <Link to={user ? '/dashboard' : '/contact'} className="btn btn-primary">
+            <Link to={user ? '/dashboard' : '/contact'} className="btn btn-primary" onClick={() => setMenuOpen(false)}>
               {user ? 'Open portaal' : 'Plan contact'}
             </Link>
           </div>
