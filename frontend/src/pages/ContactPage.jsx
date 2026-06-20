@@ -23,19 +23,53 @@ export function ContactPage() {
   }
 
   return (
-    <section className="container page">
-      <h1>Contact</h1>
-      <p>Voor algemene vragen kunt u contact opnemen met het bestuur via onderstaand formulier.</p>
-      <form onSubmit={submit} className="form">
-        <input required placeholder="Naam" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
-        <input required type="email" placeholder="E-mail" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
-        <textarea required rows="6" placeholder="Bericht" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
-        <button className="btn" type="submit">
-          Verstuur
-        </button>
-      </form>
-      {message ? <p className="success">{message}</p> : null}
-      {error ? <p className="error">{error}</p> : null}
+    <section className="page-shell">
+      <div className="container contact-grid">
+        <article className="premium-panel contact-overview">
+          <p className="eyebrow">Contact</p>
+          <h1>Neem contact op met het bestuur of beheer.</h1>
+          <p>
+            Voor algemene vragen, bewonersverzoeken of aanvullende informatie over Meander1 kunt u
+            onderstaand formulier gebruiken.
+          </p>
+          <div className="contact-details">
+            <div>
+              <strong>Locatie</strong>
+              <span>Van der Palmkade, Amsterdam</span>
+            </div>
+            <div>
+              <strong>Onderwerp</strong>
+              <span>Bewonerscommunicatie, beheer en portalvragen</span>
+            </div>
+            <div>
+              <strong>Respons</strong>
+              <span>Heldere opvolging via bestuur of beheerpartner</span>
+            </div>
+          </div>
+        </article>
+
+        <article className="premium-panel">
+          <form onSubmit={submit} className="form">
+            <label className="input-group">
+              <span>Naam</span>
+              <input required placeholder="Uw naam" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
+            </label>
+            <label className="input-group">
+              <span>E-mailadres</span>
+              <input required type="email" placeholder="naam@voorbeeld.nl" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
+            </label>
+            <label className="input-group">
+              <span>Bericht</span>
+              <textarea required rows="6" placeholder="Waarmee kunnen we u helpen?" value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
+            </label>
+            <button className="btn btn-primary" type="submit">
+              Verstuur bericht
+            </button>
+          </form>
+          {message ? <p className="success">{message}</p> : null}
+          {error ? <p className="error">{error}</p> : null}
+        </article>
+      </div>
     </section>
   )
 }
