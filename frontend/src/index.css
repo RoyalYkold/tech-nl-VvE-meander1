@@ -1,0 +1,60 @@
+:root {
+  --bg: #f4f6fb;
+  --surface: #ffffff;
+  --text: #203040;
+  --muted: #617285;
+  --primary: #2452d4;
+  --danger: #b62525;
+  --success: #15733b;
+}
+
+body.dark {
+  --bg: #101722;
+  --surface: #192232;
+  --text: #e8eff9;
+  --muted: #98a8bc;
+  --primary: #7fa3ff;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+a { color: var(--primary); text-decoration: none; }
+.container { width: min(1100px, 92%); margin: 0 auto; }
+.page { padding: 2rem 0 3rem; }
+.small { max-width: 640px; }
+
+.topbar { background: var(--surface); border-bottom: 1px solid #d8deea; position: sticky; top: 0; z-index: 10; }
+.nav-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.8rem 0; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.nav-links .active { font-weight: 700; }
+.brand { font-weight: 800; color: var(--text); }
+
+.hero { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; padding: 2.4rem 0; }
+.hero-card, .card { background: var(--surface); border-radius: 14px; padding: 1rem; box-shadow: 0 8px 24px rgb(20 36 74 / 8%); }
+.badge { display: inline-block; background: #dce6ff; color: #1f3e9b; border-radius: 999px; padding: 0.2rem 0.8rem; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
+
+.row, .filters, .dashboard-links { display: flex; flex-wrap: wrap; gap: 0.8rem; margin: 1rem 0; }
+.form { display: grid; gap: 0.75rem; }
+input, textarea, select, button { font: inherit; }
+input, textarea, select { width: 100%; padding: 0.7rem; border-radius: 10px; border: 1px solid #cfd7e6; background: var(--surface); color: var(--text); }
+.btn { border: none; border-radius: 10px; padding: 0.65rem 1rem; background: var(--primary); color: white; cursor: pointer; }
+.btn-secondary { background: #5f6f88; color: white; }
+
+.muted { color: var(--muted); }
+.error { color: var(--danger); }
+.success { color: var(--success); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; background: var(--surface); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 0.6rem; border-bottom: 1px solid #dce4f2; }
+.footer { text-align: center; color: var(--muted); padding: 1.2rem; }
+
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+}
