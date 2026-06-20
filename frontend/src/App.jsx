@@ -18,20 +18,14 @@ import { defaultContent } from './utils/defaultContent'
 
 function App() {
   const { user } = useAuth()
-  const [darkMode, setDarkMode] = useState(localStorage.getItem('theme') === 'dark')
   const [content, setContent] = useState(defaultContent)
 
   useEffect(() => {
     api('/public/pages').then(setContent).catch(() => setContent(defaultContent))
   }, [])
 
-  useEffect(() => {
-    document.body.classList.toggle('dark', darkMode)
-    localStorage.setItem('theme', darkMode ? 'dark' : 'light')
-  }, [darkMode])
-
   return (
-    <PageLayout darkMode={darkMode} toggleDarkMode={() => setDarkMode((v) => !v)}>
+    <PageLayout>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/over" element={<StaticPage title="Over Meander1" content={content.about} />} />
