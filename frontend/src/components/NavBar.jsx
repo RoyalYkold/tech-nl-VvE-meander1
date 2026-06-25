@@ -4,11 +4,14 @@ import { useAuth } from '../useAuth'
 
 const publicLinks = [
   ['/', 'Home'],
-  ['/over', 'Over Meander1'],
   ['/nieuws', 'Nieuws'],
+  ['/algemene-informatie', 'Algemene informatie'],
   ['/parkeergarage', 'Parkeergarage'],
   ['/parqy', 'Parqy'],
+  ['/duurzaamheid', 'Duurzaamheid'],
+  ['/historie', 'Historie'],
   ['/contact', 'Contact'],
+  ['/inloggen', 'Inloggen'],
 ]
 
 export function NavBar() {
@@ -35,7 +38,7 @@ export function NavBar() {
           <span className="brand-mark">M1</span>
           <span className="brand-copy">
             <strong>VvE Meander1</strong>
-            <span>Residentieel wonen aan het water</span>
+            <span>Van der Palmkade · Amsterdam</span>
           </span>
         </Link>
 
@@ -65,13 +68,9 @@ export function NavBar() {
               <button onClick={() => { setMenuOpen(false); logout() }} className="btn btn-ghost" type="button">
                 Uitloggen
               </button>
-            ) : (
-              <NavLink to="/inloggen" className="btn btn-ghost" onClick={() => setMenuOpen(false)}>
-                Bewonerslogin
-              </NavLink>
-            )}
+            ) : null}
             <Link to={user ? '/dashboard' : '/contact'} className="btn btn-primary" onClick={() => setMenuOpen(false)}>
-              {user ? 'Open portaal' : 'Plan contact'}
+              {user ? 'Open portaal' : 'Stel een vraag'}
             </Link>
           </div>
         </div>

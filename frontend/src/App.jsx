@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from './useAuth'
 import { ProtectedRoute } from './components/ProtectedRoute'
@@ -10,32 +9,33 @@ import { DocumentsPage } from './pages/DocumentsPage'
 import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { MaintenancePage } from './pages/MaintenancePage'
+import { NewsDetailPage } from './pages/NewsDetailPage'
 import { NewsPage } from './pages/NewsPage'
 import { ProfilePage } from './pages/ProfilePage'
 import { StaticPage } from './pages/StaticPage'
-import { api } from './api'
-import { defaultContent } from './utils/defaultContent'
+import { pageContentData } from './data/pageContentData'
 
 function App() {
   const { user } = useAuth()
-  const [content, setContent] = useState(defaultContent)
-
-  useEffect(() => {
-    api('/public/pages').then(setContent).catch(() => setContent(defaultContent))
-  }, [])
 
   return (
     <PageLayout>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/over" element={<StaticPage title="Over Meander1" content={content.about} />} />
         <Route path="/nieuws" element={<NewsPage />} />
+        <Route path="/nieuws/:newsId" element={<NewsDetailPage />} />
+        <Route path="/algemene-informatie" element={<StaticPage page={pageContentData.algemeneInformatie} />} />
+        <Route path="/parkeergarage" element={<StaticPage page={pageContentData.parkeergarage} />} />
+        <Route path="/parqy" element={<StaticPage page={pageContentData.parqy} />} />
+        <Route path="/duurzaamheid" element={<StaticPage page={pageContentData.duurzaamheid} />} />
+        <Route path="/historie" element={<StaticPage page={pageContentData.historie} />} />
+        <Route path="/de-kade-en-het-plein" element={<StaticPage page={pageContentData.kadeEnPlein} />} />
+        <Route path="/convect" element={<StaticPage page={pageContentData.convect} />} />
+        <Route path="/fotos" element={<StaticPage page={pageContentData.fotos} />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/parkeergarage" element={<StaticPage title="Parkeergarage" content={content.parking} />} />
-        <Route path="/parqy" element={<StaticPage title="Parqy" content={content.parqy} />} />
-        <Route path="/historie" element={<StaticPage title="Historie van het gebouw" content={content.history} />} />
-        <Route path="/faq" element={<StaticPage title="Veelgestelde vragen" content={content.faq} />} />
         <Route path="/inloggen" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
+        <Route path="/over" element={<Navigate to="/algemene-informatie" replace />} />
+        <Route path="/faq" element={<Navigate to="/algemene-informatie" replace />} />
 
         <Route
           path="/dashboard"
